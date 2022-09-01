@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4e431cd9.css",
+    "main.js": "/static/js/main.3e07b58b.js",
+    "static/media/finishTimer.mp3": "/static/media/finishTimer.84201c9269732ea2558c.mp3",
+    "static/media/remind.mp3": "/static/media/remind.616b505d1912f2842737.mp3",
+    "static/media/clickCloud.mp3": "/static/media/clickCloud.6ae37dbec3b2b821313c.mp3",
+    "static/media/pressBtn.mp3": "/static/media/pressBtn.0f9367ee2c0c46c86e45.mp3",
+    "static/media/fav-2.ico": "/static/media/fav-2.f79749a60e53a16cfe92.ico",
+    "static/media/fav-1.ico": "/static/media/fav-1.1931f4b4791570c76108.ico",
+    "static/media/question.svg": "/static/media/question.cf57e34933509b3ac536.svg",
+    "static/media/dots.svg": "/static/media/dots.22fbb0fc0a228391a95d.svg",
+    "index.html": "/index.html",
+    "static/media/close-btn.svg": "/static/media/close-btn.869ea5aff9a2b94c1cb6.svg",
+    "static/media/play.svg": "/static/media/play.c1abc8db53bcbca1bea6.svg",
+    "static/media/cloud.svg": "/static/media/cloud.67d13243395ada0f16d7.svg",
+    "static/media/pause.svg": "/static/media/pause.b0c1c70d594a44aed99d.svg",
+    "static/media/stop.svg": "/static/media/stop.069e9671b5680f9e5e1a.svg",
+    "static/media/up.svg": "/static/media/up.106eb180b25849d6dfb3.svg",
+    "static/media/down.svg": "/static/media/down.d53915f831924babb16f.svg",
+    "main.4e431cd9.css.map": "/static/css/main.4e431cd9.css.map",
+    "main.3e07b58b.js.map": "/static/js/main.3e07b58b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4e431cd9.css",
+    "static/js/main.3e07b58b.js"
+  ]
+}
