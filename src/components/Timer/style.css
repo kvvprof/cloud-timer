@@ -1,0 +1,88 @@
+.timer {
+	position: relative;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	width: 350px;
+	height: 350px;
+
+	font-size: 70px;
+	color: var(--text);
+
+	background-color: var(--bg-regular);
+	border-radius: 100%;
+}
+
+.timer__inner {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.timer__item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.timer__up,
+.timer__down {
+	cursor: pointer;
+
+	width: 30px;
+	height: 30px;
+	padding: 10px;
+
+	background-color: var(--bg-regular);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 20px;
+	border-radius: 100%;
+
+	transition: 0.3;
+}
+
+.timer__up {
+	background-image: url('../../assets/images/up.svg');
+
+	transition: 0.3;
+}
+
+.timer__down {
+	background-image: url('../../assets/images/down.svg');
+}
+
+.timer__separator {
+	width: 20px;
+	height: 20px;
+
+	background-image: url('../../assets/images/dots.svg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+}
+
+@media screen and (max-width: 480px) {
+	.timer {
+		width: 240px;
+		height: 240px;
+
+		font-size: 40px;
+	}
+
+	.timer__up,
+	.timer__down {
+		width: 20px;
+		height: 20px;
+	}
+
+	.timer__separator {
+		width: 10px;
+		height: 10px;
+	}
+}

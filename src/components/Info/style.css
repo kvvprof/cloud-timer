@@ -1,0 +1,88 @@
+.info {
+	position: absolute;
+	z-index: 100;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.info__closing-area {
+	cursor: pointer;
+
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	opacity: 0.6;
+	background-color: #000;
+}
+
+.info__content {
+	position: relative;
+	z-index: 200;
+
+	width: 400px;
+	height: 420px;
+	padding: 20px;
+
+	background: linear-gradient(180deg, #eeeef5 0%, #c9d0f1 100%);
+	border-radius: 20px;
+}
+
+.info__close-btn {
+	position: absolute;
+	top: -35px;
+	right: -35px;
+
+	width: 40px;
+	height: 40px;
+
+	opacity: 0.3;
+	background-color: transparent;
+	background-image: url('../../assets/images/close-btn.svg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+}
+
+.info__title {
+	margin-bottom: 20px;
+
+	font-weight: 600;
+	text-align: center;
+}
+
+.info__text {
+	margin-bottom: 15px;
+
+	font-size: 16px;
+	line-height: 22px;
+}
+
+.info__link {
+	display: block;
+
+	margin-bottom: 10px;
+
+	font-size: 16px;
+	font-weight: 600;
+	text-decoration: underline;
+}
+
+.info__link:visited {
+	text-decoration: underline;
+}
+
+@media screen and (max-width: 480px) {
+	.info__content {
+		width: 300px;
+		height: 510px;
+	}
+}

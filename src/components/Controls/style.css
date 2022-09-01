@@ -1,0 +1,54 @@
+.controls {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	width: 100%;
+}
+
+.controls__stop,
+.controls__play,
+.controls__pause,
+.controls__info {
+	cursor: pointer;
+
+	width: 60px;
+	height: 60px;
+	padding: 10px;
+
+	background-color: var(--bg-regular);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 20px;
+	border-radius: 100%;
+}
+
+.controls__stop {
+	background-image: url('../../assets/images/stop.svg');
+}
+
+.controls__play {
+	background-image: url('../../assets/images/play.svg');
+	background-position: 22px;
+}
+
+.controls__pause {
+	background-image: url('../../assets/images/pause.svg');
+}
+
+.controls__info {
+	width: 35px;
+	height: 35px;
+
+	opacity: 0.5;
+	background-image: url('../../assets/images/question.svg');
+
+	transition: 0.3s;
+}
+
+.controls__info:hover {
+	opacity: 1;
+
+	transition: 0.3s;
+}

@@ -1,0 +1,39 @@
+.quick-time {
+	position: absolute;
+	bottom: 50px;
+
+	display: flex;
+	flex-direction: row;
+	gap: 7px;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.quick-time__time {
+	padding: 4px;
+
+	opacity: 0.6;
+	background-color: transparent;
+	border: 1px solid var(--text);
+	border-radius: 7px;
+
+	transition: 0.3s;
+}
+
+.quick-time__time:hover {
+	opacity: 1;
+
+	transition: 0.3s;
+}
+
+@media screen and (max-width: 480px) {
+	.quick-time {
+		bottom: 40px;
+	}
+
+	.quick-time__time {
+		padding: 2px;
+
+		font-size: 12px;
+	}
+}
