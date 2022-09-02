@@ -20,7 +20,7 @@ const Info = ({ isInfo, setIsInfo, settings, changeSettings }) => {
 
 				<p className='info__text'>You can press "Space" for start/pause timer.</p>
 
-				<p className='info__text'>Clouds are not active if tab is inactive.</p>
+				<p className='info__text'>Clouds don't fly if the timer and tab are not active.</p>
 
 				<a className='info__link' href='https://github.com/kvvprof' target='_blank' rel='noopener noreferrer'>
 					Created by kvvprof
