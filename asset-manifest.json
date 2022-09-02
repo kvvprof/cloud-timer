@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/cloud-timer/static/css/main.04563e86.css",
-    "main.js": "/cloud-timer/static/js/main.780fd594.js",
+    "main.css": "/cloud-timer/static/css/main.8feda491.css",
+    "main.js": "/cloud-timer/static/js/main.f0520f7f.js",
     "static/media/finishTimer.mp3": "/cloud-timer/static/media/finishTimer.84201c9269732ea2558c.mp3",
     "static/media/remind.mp3": "/cloud-timer/static/media/remind.616b505d1912f2842737.mp3",
     "static/media/clickCloud.mp3": "/cloud-timer/static/media/clickCloud.6ae37dbec3b2b821313c.mp3",
@@ -18,11 +18,11 @@
     "static/media/stop.svg": "/cloud-timer/static/media/stop.069e9671b5680f9e5e1a.svg",
     "static/media/up.svg": "/cloud-timer/static/media/up.106eb180b25849d6dfb3.svg",
     "static/media/down.svg": "/cloud-timer/static/media/down.d53915f831924babb16f.svg",
-    "main.04563e86.css.map": "/cloud-timer/static/css/main.04563e86.css.map",
-    "main.780fd594.js.map": "/cloud-timer/static/js/main.780fd594.js.map"
+    "main.8feda491.css.map": "/cloud-timer/static/css/main.8feda491.css.map",
+    "main.f0520f7f.js.map": "/cloud-timer/static/js/main.f0520f7f.js.map"
   },
   "entrypoints": [
-    "static/css/main.04563e86.css",
-    "static/js/main.780fd594.js"
+    "static/css/main.8feda491.css",
+    "static/js/main.f0520f7f.js"
   ]
 }
