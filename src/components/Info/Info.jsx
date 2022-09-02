@@ -1,5 +1,5 @@
 import React from 'react';
-import AppSettings from '../AppSettings/AppSettings';
+import Settings from '../Settings/Settings';
 import './style.css';
 
 const Info = ({ isInfo, setIsInfo, settings, changeSettings }) => {
@@ -10,7 +10,7 @@ const Info = ({ isInfo, setIsInfo, settings, changeSettings }) => {
 				<button className='info__close-btn' onClick={() => setIsInfo(false)}></button>
 				<h1 className='info__title'>☁️ Cloud Timer ☁️</h1>
 
-				<AppSettings settings={settings} changeSettings={changeSettings} />
+				<Settings settings={settings} changeSettings={changeSettings} />
 
 				<p className='info__text'>A simple countdown timer for work or study.</p>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 
-const AppSettings = ({ settings, changeSettings }) => {
+const Settings = ({ settings, changeSettings }) => {
 	return (
 		<fieldset className='settings'>
 			<div className='settings__item'>
@@ -49,4 +49,4 @@ const AppSettings = ({ settings, changeSettings }) => {
 	);
 };
 
-export default AppSettings;
+export default Settings;

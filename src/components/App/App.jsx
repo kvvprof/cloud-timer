@@ -17,14 +17,14 @@ import fav2 from '../../assets/images/fav-2.ico';
 const getFavicon = () => document.getElementById('favicon');
 
 const App = () => {
-	const [time, setTime] = useState(JSON.parse(localStorage.getItem('data'))?.time || 0);
+	const [time, setTime] = useState(JSON.parse(localStorage.getItem('cloudTimerData'))?.time || 0);
 
-	const [initTime, setInitTime] = useState(JSON.parse(localStorage.getItem('data'))?.initTime || 0);
+	const [initTime, setInitTime] = useState(JSON.parse(localStorage.getItem('cloudTimerData'))?.initTime || 0);
 
-	const [progress, setProgress] = useState(JSON.parse(localStorage.getItem('data'))?.progress || 0);
+	const [progress, setProgress] = useState(JSON.parse(localStorage.getItem('cloudTimerData'))?.progress || 0);
 
 	const [settings, setSettings] = useState(
-		JSON.parse(localStorage.getItem('settings')) || { theme: 'light', clouds: 'on', sounds: 'on' }
+		JSON.parse(localStorage.getItem('cloudTimerSettings')) || { theme: 'light', clouds: 'on', sounds: 'on' }
 	);
 
 	const [isStart, setIsStart] = useState(false);
@@ -198,12 +198,12 @@ const App = () => {
 
 		setRemindInterval(clearInterval(remindInterval));
 
-		localStorage.setItem('data', JSON.stringify({ time, initTime, progress }));
+		localStorage.setItem('cloudTimerData', JSON.stringify({ time, initTime, progress }));
 	};
 
 	// dynamic theme change
 	useEffect(() => {
-		localStorage.setItem('settings', JSON.stringify(settings));
+		localStorage.setItem('cloudTimerSettings', JSON.stringify(settings));
 
 		if (settings.theme === 'dark') {
 			document.body.style.background = 'linear-gradient(180deg, #313236 0%, #202124 100%)';
@@ -241,7 +241,7 @@ const App = () => {
 
 	// update LocalStorage
 	useEffect(() => {
-		localStorage.setItem('data', JSON.stringify({ time, initTime, progress }));
+		localStorage.setItem('cloudTimerData', JSON.stringify({ time, initTime, progress }));
 	}, [progress, time]);
 
 	// clear clouds if limit
