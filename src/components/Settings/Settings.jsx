@@ -28,7 +28,7 @@ const Settings = ({ settings, changeSettings }) => {
 					checked={settings.clouds === 'on' ? true : false}
 				/>
 				<label className='settings__title' htmlFor='clouds'>
-					Clouds
+					Clouds (restart the timer)
 				</label>
 			</div>
 
