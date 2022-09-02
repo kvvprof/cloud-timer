@@ -1,7 +1,8 @@
 import React from 'react';
 import './style.css';
+import pressBtn from '../../assets/sounds/pressBtn.mp3';
 
-const Settings = ({ settings, changeSettings }) => {
+const Settings = ({ settings, changeSettings, playSound }) => {
 	return (
 		<fieldset className='settings'>
 			<div className='settings__item'>
@@ -10,7 +11,10 @@ const Settings = ({ settings, changeSettings }) => {
 					type='checkbox'
 					id='theme'
 					name='theme'
-					onChange={() => changeSettings('theme')}
+					onChange={() => {
+						changeSettings('theme');
+						playSound(pressBtn);
+					}}
 					checked={settings.theme === 'light' ? false : true}
 				/>
 				<label className='settings__title' htmlFor='theme'>
@@ -24,7 +28,10 @@ const Settings = ({ settings, changeSettings }) => {
 					type='checkbox'
 					id='clouds'
 					name='clouds'
-					onChange={() => changeSettings('clouds')}
+					onChange={() => {
+						changeSettings('clouds');
+						playSound(pressBtn);
+					}}
 					checked={settings.clouds === 'on' ? true : false}
 				/>
 				<label className='settings__title' htmlFor='clouds'>
@@ -38,7 +45,10 @@ const Settings = ({ settings, changeSettings }) => {
 					type='checkbox'
 					id='sounds'
 					name='sounds'
-					onChange={() => changeSettings('sounds')}
+					onChange={() => {
+						changeSettings('sounds');
+						playSound(pressBtn);
+					}}
 					checked={settings.sounds === 'on' ? true : false}
 				/>
 				<label className='settings__title' htmlFor='sounds'>

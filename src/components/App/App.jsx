@@ -320,7 +320,13 @@ const App = () => {
 					setIsControlButton={setIsControlButton}
 				/>
 			</div>
-			<Info isInfo={isInfo} setIsInfo={setIsInfo} settings={settings} changeSettings={changeSettings} />
+			<Info
+				isInfo={isInfo}
+				setIsInfo={setIsInfo}
+				settings={settings}
+				changeSettings={changeSettings}
+				playSound={playSound}
+			/>
 		</div>
 	);
 };

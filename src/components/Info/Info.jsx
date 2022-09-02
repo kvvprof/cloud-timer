@@ -2,7 +2,7 @@ import React from 'react';
 import Settings from '../Settings/Settings';
 import './style.css';
 
-const Info = ({ isInfo, setIsInfo, settings, changeSettings }) => {
+const Info = ({ isInfo, setIsInfo, settings, changeSettings, playSound}) => {
 	return (
 		<div className='info' style={{ display: isInfo ? 'flex' : 'none' }}>
 			<div className='info__closing-area' onClick={() => setIsInfo(false)}></div>
@@ -10,7 +10,7 @@ const Info = ({ isInfo, setIsInfo, settings, changeSettings }) => {
 				<button className='info__close-btn' onClick={() => setIsInfo(false)}></button>
 				<h1 className='info__title'>☁️ Cloud Timer ☁️</h1>
 
-				<Settings settings={settings} changeSettings={changeSettings} />
+				<Settings settings={settings} changeSettings={changeSettings} playSound={playSound} />
 
 				<p className='info__text'>A simple countdown timer for work or study.</p>
 
