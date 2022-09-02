@@ -6,10 +6,10 @@
 	align-items: center;
 	justify-content: center;
 
-	width: 350px;
-	height: 350px;
+	width: 380px;
+	height: 380px;
 
-	font-size: 70px;
+	font-size: 80px;
 	color: var(--text);
 
 	background-color: var(--bg-regular);
