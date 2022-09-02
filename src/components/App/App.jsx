@@ -7,7 +7,7 @@ import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Clouds from '../Clouds/Clouds';
 import { getRandomValue } from '../../helpers/getRandomValue';
-import finisTimer from '../../assets/sounds/finishTimer.mp3';
+import finishTimer from '../../assets/sounds/finishTimer.mp3';
 import remind from '../../assets/sounds/remind.mp3';
 import pressBtn from '../../assets/sounds/pressBtn.mp3';
 import Info from '../Info/Info';
@@ -45,48 +45,49 @@ const App = () => {
 
 	const [isControlButton, setIsControlButton] = useState(false);
 
-	const [isTimeChange, setIsTimeChange] = useState(false);
-
 	const setHours = (direction) => {
 		if (direction === 'up') {
 			setTime((prev) => prev + 3600);
+			setInitTime((prev) => prev + 3600);
 		} else {
 			if (time >= 3600) {
 				setTime((prev) => prev - 3600);
+				setInitTime((prev) => prev - 3600);
 			}
 		}
 		setIsControlButton(false);
-		setIsTimeChange(true);
 	};
 
 	const setMinutes = (direction) => {
 		if (direction === 'up') {
 			setTime((prev) => prev + 60);
+			setInitTime((prev) => prev + 60);
 		} else {
 			if (time >= 60) {
 				setTime((prev) => prev - 60);
+				setInitTime((prev) => prev - 60);
 			}
 		}
 		setIsControlButton(false);
-		setIsTimeChange(true);
 	};
 
 	const setSeconds = (direction) => {
 		if (direction === 'up') {
 			setTime((prev) => prev + 1);
+			setInitTime((prev) => prev + 1);
 		} else {
 			if (time >= 1) {
 				setTime((prev) => prev - 1);
+				setInitTime((prev) => prev - 1);
 			}
 		}
 		setIsControlButton(false);
-		setIsTimeChange(true);
 	};
 
 	const addQuickTime = (seconds) => {
 		setTime((prev) => prev + seconds);
+		setInitTime((prev) => prev + seconds);
 		setIsControlButton(false);
-		setIsTimeChange(true);
 	};
 
 	const createClouds = () => {
@@ -141,8 +142,6 @@ const App = () => {
 		setRemindInterval(clearInterval(remindInterval));
 
 		if (time > 0) {
-			isTimeChange && setInitTime(time);
-
 			changeFavicon(true);
 
 			setIsStart(true);
@@ -150,8 +149,6 @@ const App = () => {
 			setIsPause(false);
 
 			setIsStop(false);
-
-			setIsTimeChange(false);
 
 			setTimeInterval(
 				setInterval(() => {
@@ -161,6 +158,8 @@ const App = () => {
 
 			createClouds();
 		}
+
+		time === 0 && stopTimer();
 	};
 
 	const pauseTimer = () => {
@@ -224,13 +223,13 @@ const App = () => {
 
 	// update progress
 	useEffect(() => {
-		if (isStart) {
-			time !== initTime && setProgress(100 - Math.floor((time / initTime) * 100));
+		time !== initTime && setProgress(100 - Math.floor((time / initTime) * 100));
 
+		if (isStart) {
 			time === 0 &&
 				setTimeout(() => {
 					stopTimer();
-					playSound(finisTimer);
+					playSound(finishTimer);
 				}, 1000);
 		}
 	}, [time]);
