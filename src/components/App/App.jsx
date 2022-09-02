@@ -158,6 +158,8 @@ const App = () => {
 					setTime((prev) => (prev >= 1 ? prev - 1 : 0));
 				}, 1000)
 			);
+
+			createClouds();
 		}
 	};
 
@@ -171,6 +173,8 @@ const App = () => {
 		setIsStop(false);
 
 		setTimeInterval(clearInterval(timeInterval));
+
+		setCloudInterval(clearInterval(cloudInterval));
 
 		setRemindInterval(
 			setInterval(() => {
@@ -198,6 +202,8 @@ const App = () => {
 
 		setRemindInterval(clearInterval(remindInterval));
 
+		setCloudInterval(clearInterval(cloudInterval));
+
 		localStorage.setItem('cloudTimerData', JSON.stringify({ time, initTime, progress }));
 	};
 
@@ -215,16 +221,6 @@ const App = () => {
 			document.querySelector('.logo').style.color = '#142b4a';
 		}
 	}, [settings.theme]);
-
-	// on/off clouds
-	useEffect(() => {
-		settings.clouds === 'on' && createClouds();
-
-		if (settings.clouds === 'off') {
-			setCloudsArray([]);
-			setCloudInterval(clearInterval(cloudInterval));
-		}
-	}, [settings.clouds]);
 
 	// update progress
 	useEffect(() => {
@@ -256,7 +252,9 @@ const App = () => {
 
 	// create the clouds if the tab is active
 	window.onfocus = () => {
-		settings.clouds === 'on' && createClouds();
+		if (settings.clouds === 'on' && isStart) {
+			settings.clouds === 'on' && createClouds();
+		}
 	};
 
 	// start/pause by space
