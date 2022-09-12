@@ -16,6 +16,7 @@ const Controls = ({ isStart, startTimer, pauseTimer, stopTimer, setIsInfo, playS
 				onClick={() => {
 					setIsInfo(true);
 					playSound(pressBtn);
+					setIsControlButton(true);
 				}}></button>
 
 			{isStart ? (

@@ -13,6 +13,7 @@ import pressBtn from '../../assets/sounds/pressBtn.mp3';
 import Info from '../Info/Info';
 import fav1 from '../../assets/images/fav-1.ico';
 import fav2 from '../../assets/images/fav-2.ico';
+import { clearInterval, setInterval, setTimeout } from 'worker-timers';
 
 const getFavicon = () => document.getElementById('favicon');
 
@@ -27,23 +28,19 @@ const App = () => {
 		JSON.parse(localStorage.getItem('cloudTimerSettings')) || { theme: 'light', clouds: 'on', sounds: 'on' }
 	);
 
-	const [isStart, setIsStart] = useState(false);
-
-	const [isPause, setIsPause] = useState(false);
-
-	const [isStop, setIsStop] = useState(true);
+	const [timerState, setTimerState] = useState({ isStart: false, isPause: false, isStop: true });
 
 	const [cloudsArray, setCloudsArray] = useState([]);
-
-	const [timeInterval, setTimeInterval] = useState();
-
-	const [cloudInterval, setCloudInterval] = useState();
-
-	const [remindInterval, setRemindInterval] = useState();
 
 	const [isInfo, setIsInfo] = useState(false);
 
 	const [isControlButton, setIsControlButton] = useState(false);
+
+	const [timeInterval, setTimeInterval] = useState(undefined);
+
+	const [cloudInterval, setCloudInterval] = useState(undefined);
+
+	const [remindInterval, setRemindInterval] = useState(undefined);
 
 	const setHours = (direction) => {
 		if (direction === 'up') {
@@ -117,7 +114,6 @@ const App = () => {
 
 	const changeFavicon = (active) => {
 		const favicon = getFavicon();
-
 		active ? (favicon.href = fav2) : (favicon.href = fav1);
 	};
 
@@ -132,48 +128,34 @@ const App = () => {
 			case 'sounds':
 				setSettings((prev) => (prev.sounds === 'on' ? { ...prev, sounds: 'off' } : { ...prev, sounds: 'on' }));
 				break;
-
 			default:
 				break;
 		}
 	};
 
 	const startTimer = () => {
-		setRemindInterval(clearInterval(remindInterval));
-
 		if (time > 0) {
+			setTimerState({ isStart: true, isPause: false, isStop: false });
 			changeFavicon(true);
+			createClouds();
 
-			setIsStart(true);
-
-			setIsPause(false);
-
-			setIsStop(false);
+			remindInterval && setRemindInterval(clearInterval(remindInterval));
 
 			setTimeInterval(
 				setInterval(() => {
 					setTime((prev) => (prev >= 1 ? prev - 1 : 0));
 				}, 1000)
 			);
-
-			createClouds();
 		}
-
 		time === 0 && stopTimer();
 	};
 
 	const pauseTimer = () => {
+		setTimerState({ isStart: false, isPause: true, isStop: false });
 		changeFavicon(false);
 
-		setIsStart(false);
-
-		setIsPause(true);
-
-		setIsStop(false);
-
-		setTimeInterval(clearInterval(timeInterval));
-
-		setCloudInterval(clearInterval(cloudInterval));
+		timeInterval && setTimeInterval(clearInterval(timeInterval));
+		cloudInterval && setCloudInterval(clearInterval(cloudInterval));
 
 		setRemindInterval(
 			setInterval(() => {
@@ -183,81 +165,20 @@ const App = () => {
 	};
 
 	const stopTimer = () => {
+		setTimerState({ isStart: false, isPause: false, isStop: true });
 		changeFavicon(false);
-
-		setIsStart(false);
-
-		setIsPause(false);
-
-		setIsStop(true);
-
 		setTime(0);
-
 		setInitTime(0);
-
 		setProgress(0);
-
-		setTimeInterval(clearInterval(timeInterval));
-
-		setRemindInterval(clearInterval(remindInterval));
-
-		setCloudInterval(clearInterval(cloudInterval));
-
-		localStorage.setItem('cloudTimerData', JSON.stringify({ time, initTime, progress }));
-	};
-
-	// dynamic theme change
-	useEffect(() => {
-		localStorage.setItem('cloudTimerSettings', JSON.stringify(settings));
-
-		if (settings.theme === 'dark') {
-			document.body.style.background = 'linear-gradient(180deg, #313236 0%, #202124 100%)';
-			document.body.style.opacity = 0.6;
-			document.querySelector('.logo').style.color = '#A6A7A9';
-		} else {
-			document.body.style.background = 'linear-gradient(180deg, #eeeef5 0%, #c9d0f1 100%)';
-			document.body.style.opacity = 1;
-			document.querySelector('.logo').style.color = '#142b4a';
-		}
-	}, [settings.theme]);
-
-	// update progress
-	useEffect(() => {
-		time !== initTime && setProgress(100 - Math.floor((time / initTime) * 100));
-
-		if (isStart) {
-			time === 0 &&
-				setTimeout(() => {
-					stopTimer();
-					playSound(finishTimer);
-				}, 1000);
-		}
-	}, [time]);
-
-	// update LocalStorage
-	useEffect(() => {
-		localStorage.setItem('cloudTimerData', JSON.stringify({ time, initTime, progress }));
-	}, [progress, time]);
-
-	// clear clouds if limit
-	useEffect(() => {
-		cloudsArray.length >= 100 && setCloudsArray([]);
-	}, [cloudsArray]);
-
-	// clear the clouds if the tab is left
-	window.onblur = () => {
-		settings.clouds === 'on' && setCloudInterval(clearInterval(cloudInterval));
-	};
-
-	// create the clouds if the tab is active
-	window.onfocus = () => {
-		if (settings.clouds === 'on' && isStart) {
-			settings.clouds === 'on' && createClouds();
-		}
+		timeInterval && setTimeInterval(clearInterval(timeInterval));
+		cloudInterval && setCloudInterval(clearInterval(cloudInterval));
+		remindInterval && setRemindInterval(clearInterval(remindInterval));
 	};
 
 	// start/pause by space
 	useEffect(() => {
+		const { isStart, isPause, isStop } = timerState;
+
 		const spaceBtnListener = (event) => {
 			if (event.code === 'Space') {
 				playSound(pressBtn);
@@ -279,10 +200,61 @@ const App = () => {
 			}
 		};
 
-		isControlButton === false && document.addEventListener('keydown', spaceBtnListener);
+		!isControlButton && document.addEventListener('keydown', spaceBtnListener);
 
 		return () => document.removeEventListener('keydown', spaceBtnListener);
-	}, [isStart, isPause, isStop, time]);
+	}, [timerState, time]);
+
+	// progress
+	useEffect(() => {
+		time !== initTime && setProgress(100 - Math.floor((time / initTime) * 100));
+
+		if (time === 0 && timerState.isStart) {
+			setTimeout(() => {
+				stopTimer();
+				playSound(finishTimer);
+			}, 1000);
+		}
+	}, [time]);
+
+	// update LocalStorage
+	useEffect(() => {
+		localStorage.setItem('cloudTimerData', JSON.stringify({ time, initTime, progress }));
+	}, [progress, time]);
+
+	// clear clouds if limit >= 100
+	useEffect(() => {
+		cloudsArray.length >= 100 && setCloudsArray([]);
+	}, [cloudsArray]);
+
+	// clear the clouds if the tab is left
+	window.onblur = () => {
+		if (settings.clouds === 'on' && cloudInterval) {
+			clearInterval(cloudInterval);
+		}
+	};
+
+	// create the clouds if the tab is active
+	window.onfocus = () => {
+		if (settings.clouds === 'on' && timerState.isStart) {
+			createClouds();
+		}
+	};
+
+	// dynamic theme change
+	useEffect(() => {
+		localStorage.setItem('cloudTimerSettings', JSON.stringify(settings));
+
+		if (settings.theme === 'dark') {
+			document.body.style.background = 'linear-gradient(180deg, #313236 0%, #202124 100%)';
+			document.body.style.opacity = 0.6;
+			document.querySelector('.logo').style.color = '#A6A7A9';
+		} else {
+			document.body.style.background = 'linear-gradient(180deg, #eeeef5 0%, #c9d0f1 100%)';
+			document.body.style.opacity = 1;
+			document.querySelector('.logo').style.color = '#142b4a';
+		}
+	}, [settings.theme]);
 
 	return (
 		<div className='app'>
@@ -301,7 +273,7 @@ const App = () => {
 				<CircularProgressbarWithChildren className='progress-bar' value={progress}>
 					<Timer
 						time={time}
-						isStart={isStart}
+						isStart={timerState.isStart}
 						setHours={setHours}
 						setMinutes={setMinutes}
 						setSeconds={setSeconds}
@@ -311,7 +283,7 @@ const App = () => {
 				</CircularProgressbarWithChildren>
 
 				<Controls
-					isStart={isStart}
+					isStart={timerState.isStart}
 					startTimer={startTimer}
 					pauseTimer={pauseTimer}
 					stopTimer={stopTimer}
